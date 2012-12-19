@@ -106,6 +106,8 @@
         });
     }, false);
     
+    ui.addEventListener('gesturestart', function (e) { display(e,e); }, false);
+    ui.addEventListener('gestureend', function (e) { display(e,e); }, false);
 </script>
 </body>
 </html>
