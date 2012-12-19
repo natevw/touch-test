@@ -20,6 +20,9 @@
             position: absolute;
             font-size: 200%;
         }
+        .point.fade {
+            opacity: 0.25;
+        }
     </style>
 </head>
 <body>
@@ -51,11 +54,13 @@
             ui.appendChild(el);
             pointerEls[id] = el;
         } else if (!p && el) {
-            el.parentNode.removeChild(el);
             delete pointerEls[id];
+            el.className += ' fade';
+            setTimeout(function () {
+                el.parentNode.removeChild(el);
+            }, 500);
             return;
         }
-        
         el.style.top = (p.clientY - el.clientHeight/2) + 'px';
         el.style.left = (p.clientX - el.clientWidth/2) + 'px';
     }
