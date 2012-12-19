@@ -10,4 +10,4 @@ For example, when I last tested:
 * the Kindle Fire "Silk" browser sent touch events, but only for a single finger
 * the Microsoft Surface and other multitouch IE10 devices should deliver pointer events, but I haven't had opportunity to verify my logging code and see it in action myself
 
-You pretty much just load the standalone HTML file in your browser of choice. I tend to use `python -m SimpleHTTPServer 8080` to host this from a [grandpa box](http://dilbert.com/strips/comic/2011-08-03/) to a local network. This repo doubles as an **[online demo](http://natevw.github.com/touch-tester)** — it can be accessed from devices at mobile shops, electronics resellers and nerdly get-togethers!
+You pretty much just load the standalone HTML file in your browser of choice. I tend to use `python -m SimpleHTTPServer 8080` to host this from a [grandpa box](http://dilbert.com/strips/comic/2011-08-03/) to a local network. This repo doubles as an **[online demo](http://natevw.github.com/touch-test)** — it can be accessed from devices at mobile shops, electronics resellers and nerdly get-togethers!
