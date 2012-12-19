@@ -72,6 +72,33 @@
         displayMouse = false;
     }, false);
     
+    ui.addEventListener('touchstart', function (e) {
+        [].forEach.call(e.changedTouches, function (p) {
+            display(e,p);
+            pointer(p.identifier, p);
+            
+            var pid = p.identifier,
+                tgt = e.target;
+            tgt.addEventListener('touchmove', touchmove, false);
+            tgt.addEventListener('touchcancel', touchdone, false);
+            tgt.addEventListener('touchend', touchdone, false);
+            function touchmove(e) {
+                var p = [].filter.call(e.changedTouches, function (p) { return p.identifier === pid; })[0];
+                if (!p) return;
+                display(e,p);
+                pointer(pid,p);
+            }
+            function touchdone(e) {
+                var p = [].filter.call(e.changedTouches, function (p) { return p.identifier === pid; })[0];
+                if (!p) return;
+                display(e,p);
+                pointer(pid,null);
+                tgt.removeEventListener('touchmove', touchmove, false);
+                tgt.removeEventListener('touchcancel', touchdone, false);
+                tgt.removeEventListener('touchend', touchdone, false);
+            }
+        });
+    }, false);
     
 </script>
 </body>
