@@ -29,10 +29,16 @@
     var log = document.getElementById('log'),
         ui = document.getElementById('ui');
     
+    var displayTimeout = null;
     function display(e, p) {
         msg = e.type + " @ " + p.clientX + ", " + p.clientY;
         log.textContent += msg + '\n';
         e.preventDefault();     // HACK: most lazy place for it
+        
+        clearTimeout(displayTimeout);
+        displayTimeout = setTimeout(function () {   // log a newline during pauses
+            log.textContent += '\n';
+        }, 500);
     }
     
     var pointerEls = Object.create(null);
