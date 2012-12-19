@@ -78,6 +78,26 @@
         displayMouse = false;
     }, false);
     
+    var displayPointer = false;
+    ui.addEventListener('pointerdown', function (e) {
+        display(e,e);
+        pointer(e.pointerId, e);
+        displayPointer = true;
+    }, false);
+    window.addEventListener('pointermove', function (e) {
+        if (!displayPointer) return;
+        display(e,e);
+        pointer(e.pointerId, e);
+    }, false);
+    function pointerdone(e) {
+        if (!displayPointer) return;
+        display(e,e);
+        pointer(e.pointerId, null);
+        displayPointer = false;
+    }
+    window.addEventListener('pointercancel', pointerdone, false);
+    window.addEventListener('pointerup', pointerdone, false);
+    
     ui.addEventListener('touchstart', function (e) {
         [].forEach.call(e.changedTouches, function (p) {
             display(e,p);
@@ -106,8 +126,11 @@
         });
     }, false);
     
-    ui.addEventListener('gesturestart', function (e) { display(e,e); }, false);
-    ui.addEventListener('gestureend', function (e) { display(e,e); }, false);
+    function justDisplay(e) { display(e,e); }
+    ui.addEventListener('gesturestart', justDisplay, false);
+    ui.addEventListener('gestureend', justDisplay, false);
+    ui.addEventListener('pointerover', justDisplay, false);
+    ui.addEventListener('pointerout', justDisplay, false);
 </script>
 </body>
 </html>
