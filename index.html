@@ -1,0 +1,78 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Touch/mouse viewer</title>
+    <style>
+        #log {
+            font-family: monospace;
+            white-space: pre;
+            position: absolute;
+            bottom: 0;
+        }
+        #ui {
+            position: absolute;
+            top: 0; bottom: 0;
+            left: 0; right: 0;
+            border: 2px dotted grey;
+        }
+        .point {
+            position: absolute;
+            font-size: 200%;
+        }
+    </style>
+</head>
+<body>
+    <div id="log"></div>
+    <div id="ui"></div>
+<script>
+    var log = document.getElementById('log'),
+        ui = document.getElementById('ui');
+    
+    function display(e, p) {
+        msg = e.type + " @ " + p.clientX + ", " + p.clientY;
+        log.textContent += msg + '\n';
+        e.preventDefault();     // HACK: most lazy place for it
+    }
+    
+    var pointerEls = Object.create(null);
+    function pointer(id, p) {
+        var el = pointerEls[id];
+        if (p && !el) {
+            el = document.createElement('div');
+            el.className = 'point';
+            el.textContent = id;
+            ui.appendChild(el);
+            pointerEls[id] = el;
+        } else if (!p && el) {
+            el.parentNode.removeChild(el);
+            delete pointerEls[id];
+            return;
+        }
+        
+        el.style.top = (p.clientY - el.clientHeight/2) + 'px';
+        el.style.left = (p.clientX - el.clientWidth/2) + 'px';
+    }
+    
+    var displayMouse = false;
+    ui.addEventListener('mousedown', function (e) {
+        display(e,e);
+        pointer('m', e);
+        displayMouse = true;
+    }, false);
+    window.addEventListener('mousemove', function (e) {
+        if (!displayMouse) return;
+        display(e,e);
+        pointer('m', e);
+    }, false);
+    window.addEventListener('mouseup', function (e) {
+        if (!displayMouse) return;
+        display(e,e);
+        pointer('m', null);
+        displayMouse = false;
+    }, false);
+    
+    
+</script>
+</body>
+</html>
