@@ -86,12 +86,12 @@
     
     // http://www.w3.org/Submission/pointer-events/
     var displayPointer = false;
-    ui.addEventListener('pointerdown', function (e) {
+    ui.addEventListener('MSPointerDown', function (e) {
         display(e,e);
         pointer(e.pointerId, e);
         displayPointer = true;
     }, false);
-    window.addEventListener('pointermove', function (e) {
+    window.addEventListener('MSPointerMove', function (e) {
         if (!displayPointer) return;
         display(e,e);
         pointer(e.pointerId, e);
@@ -102,8 +102,8 @@
         pointer(e.pointerId, null);
         displayPointer = false;
     }
-    window.addEventListener('pointercancel', pointerdone, false);
-    window.addEventListener('pointerup', pointerdone, false);
+    window.addEventListener('MSPointerCancel', pointerdone, false);
+    window.addEventListener('MSPointerUp', pointerdone, false);
     
     // http://www.w3.org/TR/touch-events/
     ui.addEventListener('touchstart', function (e) {
@@ -137,8 +137,8 @@
     function justDisplay(e) { display(e,e); }
     ui.addEventListener('gesturestart', justDisplay, false);
     ui.addEventListener('gestureend', justDisplay, false);
-    ui.addEventListener('pointerover', justDisplay, false);
-    ui.addEventListener('pointerout', justDisplay, false);
+    ui.addEventListener('MSPointerOver', justDisplay, false);
+    ui.addEventListener('MSPointerOut', justDisplay, false);
     ui.addEventListener('click', justDisplay, false);
 </script>
 </body>
